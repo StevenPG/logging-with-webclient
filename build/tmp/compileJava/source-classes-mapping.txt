@@ -1,3 +1,5 @@
+com/stevenpg/loggingwithwebclient/examples/ConfigProperties.java
+ com.stevenpg.loggingwithwebclient.examples.ConfigProperties
 com/stevenpg/loggingwithwebclient/examples/WebClientService.java
  com.stevenpg.loggingwithwebclient.examples.WebClientService
 com/stevenpg/loggingwithwebclient/examples/ExamplesApplication.java
