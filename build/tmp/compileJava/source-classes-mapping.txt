@@ -2,10 +2,10 @@ com/stevenpg/loggingwithwebclient/examples/ConfigProperties.java
  com.stevenpg.loggingwithwebclient.examples.ConfigProperties
 com/stevenpg/loggingwithwebclient/examples/WebClientService.java
  com.stevenpg.loggingwithwebclient.examples.WebClientService
+com/stevenpg/loggingwithwebclient/examples/JettyWebClient.java
+ com.stevenpg.loggingwithwebclient.examples.JettyWebClient
+ com.stevenpg.loggingwithwebclient.examples.JettyWebClient$1
 com/stevenpg/loggingwithwebclient/examples/ExamplesApplication.java
  com.stevenpg.loggingwithwebclient.examples.ExamplesApplication
-com/stevenpg/loggingwithwebclient/examples/WebClients.java
- com.stevenpg.loggingwithwebclient.examples.WebClients
- com.stevenpg.loggingwithwebclient.examples.WebClients$1
 com/stevenpg/loggingwithwebclient/examples/WebClientServiceRunner.java
  com.stevenpg.loggingwithwebclient.examples.WebClientServiceRunner

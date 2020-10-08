@@ -13,14 +13,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 
 @Slf4j
 @Component
-public class WebClients {
+public class JettyWebClient {
 
-    Logger logger = LoggerFactory.getLogger(WebClients.class);
-
-    // Add exchange filters
+    Logger logger = LoggerFactory.getLogger(JettyWebClient.class);
 
     // logging with jetty httpclient
     // Needs jetty-reactive-httpclient
@@ -45,15 +44,16 @@ public class WebClients {
         StringBuilder log = new StringBuilder();
         // Request Logging
         inboundRequest.onRequestBegin(request ->
-                log.append("URI: ")
+                log.append("Request: \n")
+                .append("URI: ")
                 .append(request.getURI())
                 .append("\n")
                 .append("Method: ")
                 .append(request.getMethod()));
         inboundRequest.onRequestHeaders(request -> {
-            log.append("Headers:\n");
+            log.append("\nHeaders:\n");
             for (HttpField header : request.getHeaders()) {
-                log.append("Header -> " + header.getName() + " : " + header.getValue());
+                log.append("\t\t" + header.getName() + " : " + header.getValue() + "\n");
             }
         });
         inboundRequest.onRequestContent((request, content) ->
@@ -63,25 +63,27 @@ public class WebClients {
 
         // Response Logging
         inboundRequest.onResponseBegin(response ->
-                log.append("Status: ")
-                .append(response.getStatus()));
+                log.append("Response:\n")
+                .append("Status: ")
+                .append(response.getStatus())
+                .append("\n"));
         inboundRequest.onResponseHeaders(response -> {
            log.append("Headers:\n");
            for (HttpField header : response.getHeaders()) {
-               log.append("Header -> " + header.getName() + " : " + header.getValue());
+               log.append("\t\t" + header.getName() + " : " + header.getValue() + "\n");
            }
         });
         inboundRequest.onResponseContent(((response, content) -> {
-            log.append("Response Body: " + content.toString());
+            var bufferAsString = StandardCharsets.UTF_8.decode(content).toString();
+            log.append("Response Body:\n" + bufferAsString);
         }));
 
         // Add actual log invocation
-        inboundRequest.onRequestSuccess(request -> logger.debug(log.toString()));
-        inboundRequest.onResponseSuccess(response -> logger.debug(log.toString()));
+        logger.info("HTTP ->\n");
+        inboundRequest.onRequestSuccess(request -> logger.info(log.toString()));
+        inboundRequest.onResponseSuccess(response -> logger.info(log.toString()));
 
         // Return original request
         return inboundRequest;
     }
-
-    // logging with netty httpclient
 }
